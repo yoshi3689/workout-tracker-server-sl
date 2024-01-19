@@ -11,7 +11,6 @@ import authRouter from './app/routes/auth.route';
 import { corsOptions } from './app/config/cors.config';
 import { COMMON_PREFIX, R_R_PREFIX, U_R_PREFIX, A_R_PREFIX, E_R_PREFIX } from './app/config/paths.config';
 import exerciseRouter from './app/routes/exercise.route';
-import serverless from "serverless-http";
 
 
 dotenv.config()
@@ -19,7 +18,7 @@ dotenv.config()
 const app: Application = express();
 
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -43,4 +42,4 @@ mongoose
 //   console.log(`listening on ${process.env.PORT}`);
 // });
 
-module.exports.handler = serverless(app);
+module.exports.app = app;

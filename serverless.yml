@@ -8,13 +8,15 @@ provider:
   name: aws
   runtime: nodejs18.x
   profile: yoshi
+  stage: production
+  memorySize: 2048
 
 custom:
   webpack:
     includeModules: true
     packagerOptions:
       scripts:
-        - npm_config_platform=linux npm_config_arch=x64 yarn add bcrypt
+        - npm_config_platform=linux npm_config_arch=x64 npm install bcrypt
   writeEnvVars:
     NODE_ENV: ${file(./.env.yml):${opt:stage}.NODE_ENV}
     CORS_URL=: ${file(./.env.yml):${opt:stage}.CORS_URL}
@@ -30,4 +32,4 @@ functions:
     handler: lambda.handler
     events:
     - http: ANY /
-    - http: 'ANY {proxy+}'
+    - http: ANY /{proxy+}
