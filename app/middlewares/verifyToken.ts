@@ -12,7 +12,7 @@ export interface CustomRequest extends Request {
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization! as string || req.headers.Authorization! as string;
   if (!authHeader?.includes("Bearer ")) {
-    res.status(401).send("You were not authenticated");
+    res.status(401).json("You were not authenticated");
   }
   try {
     // THE BELOW IS HOW TO ACCESS cookie assigned to 'Authorization' header
@@ -25,7 +25,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     next();
   } catch (err) {
     console.error(err);
-    res.status(403).send("Forbidden");
+    res.status(403).json("Forbidden");
   }
   
 }

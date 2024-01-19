@@ -7,10 +7,10 @@ export const getPersonalRecords = async (req: Request, res: Response) => {
   try {
     const username = req.params.username;
     const exercises = await getExercisesSortedByMaxWeight(username);
-    res.status(200).send(exercises);
+    res.status(200).json(exercises);
   } catch (error) {
     console.error(error);
-    return res.status(500).send(getErrorMessage(error));
+    return res.status(500).json(getErrorMessage(error));
   }
 };
 
@@ -18,9 +18,9 @@ export const getLiftableWeightsByExercise = async (req: Request, res: Response) 
   try {
     const username = req.params.username;
     const exercises = await getExercisesOrderedByDate(username);
-    res.status(200).send(exercises);
+    res.status(200).json(exercises);
   } catch (error) {
     console.error(error);
-    return res.status(500).send(getErrorMessage(error));
+    return res.status(500).json(getErrorMessage(error));
   }
 };

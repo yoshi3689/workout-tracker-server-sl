@@ -1,0 +1,33 @@
+service: serverless-typescript
+
+plugins:
+  - serverless-plugin-write-env-vars
+
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: yoshi
+
+custom:
+  webpack:
+    includeModules: true
+    packagerOptions:
+      scripts:
+        - npm_config_platform=linux npm_config_arch=x64 yarn add bcrypt
+  writeEnvVars:
+    NODE_ENV: ${file(./.env.yml):${opt:stage}.NODE_ENV}
+    CORS_URL=: ${file(./.env.yml):${opt:stage}.CORS_URL}
+    PORT: ${file(./.env.yml):${opt:stage}.PORT}
+    JWTSECRET: ${file(./.env.yml):${opt:stage}.JWTSECRET}
+    EMAIL: ${file(./.env.yml):${opt:stage}.EMAIL}
+    APPPASSWORD: ${file(./.env.yml):${opt:stage}.APPPASSWORD}
+    ACCESS_TOKEN_SECRET: ${file(./.env.yml):${opt:stage}.ACCESS_TOKEN_SECRET}
+    REFRESH_TOKEN_SECRET: ${file(./.env.yml):${opt:stage}.REFRESH_TOKEN_SECRET}
+    MONGO_C_STRING: ${file(./.env.yml):${opt:stage}.MONGO_C_STRING}
+functions: 
+  api:
+    handler: lambda.handler
+    events:
+    - http: ANY /
+    - http: 'ANY {proxy+}'

@@ -10,7 +10,7 @@ export const signin = async (req: Request, res: Response) => {
   try {
     foundUser = await userServices.login(req.body);
 
-    if (!foundUser) return res.status(403).send(foundUser);
+    if (!foundUser) return res.status(403).json(foundUser);
     const accessToken = sign(
       { username: foundUser.username },
       process.env.ACCESS_TOKEN_SECRET,
@@ -34,10 +34,10 @@ export const signin = async (req: Request, res: Response) => {
       maxAge: 1 * 24 * 60 * 60 * 1000
     }
     );
-    return res.status(201).send({accessToken});
+    return res.status(201).json({accessToken});
   } catch (error) {
     console.log(getErrorMessage(error));
-    res.status(403).send({message:getErrorMessage(error)});
+    res.status(403).json({message:getErrorMessage(error)});
   }
 };
 
@@ -60,12 +60,12 @@ export const refresh = async (req: Request, res: Response) => {
       { expiresIn: "10m" }
     );
 
-    res.status(201).send(accessToken);
+    res.status(201).json(accessToken);
   
   } catch (err) {
     console.error(err);
     res.statusMessage = "You were not authenticated";
-    res.status(401).send();
+    res.status(401).json();
   }
 }
 

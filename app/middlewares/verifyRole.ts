@@ -5,7 +5,7 @@ export const verifyRole = (req: Request, res: Response, next: NextFunction) => {
   if (req.body.roles) {
     for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
-        res.status(400).send({
+        res.status(400).json({
           message: `Failed! Role ${req.body.roles[i]} does not exist!`,
         });
         return;

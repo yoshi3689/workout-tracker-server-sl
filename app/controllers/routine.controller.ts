@@ -7,29 +7,29 @@ export const getRoutines = async (req: Request, res: Response) => {
   try {
     const username = req.params.username;
     const routines = await getAll(username);
-    res.status(200).send(routines);
+    res.status(200).json(routines);
   } catch (error) {
     console.error(error);
-    return res.status(500).send(getErrorMessage(error));
+    return res.status(500).json(getErrorMessage(error));
   }
 };
 
 export const createRoutine = async (req: Request, res: Response) => {
   try {
     create(req.body);
-    res.status(200).send({ message: "created a new routine" },);
+    res.status(200).json({ message: "created a new routine" },);
   } catch (error) {
     console.error(error);
-    return res.status(500).send(getErrorMessage(error));
+    return res.status(500).json(getErrorMessage(error));
   }
 };
 
 export const updateRoutine = async (req: Request, res: Response) => {
   try {
-    res.status(200).send({ message: "created a new routine" },);
+    res.status(200).json({ message: "created a new routine" },);
     update(req.body);
   } catch (error) {
     console.error(error);
-    return res.status(500).send(getErrorMessage(error));
+    return res.status(500).json(getErrorMessage(error));
   }
 };

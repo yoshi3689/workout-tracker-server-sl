@@ -1,5 +1,5 @@
 import { User, IUser } from "../models/user.model"
-import { compareSync } from "bcrypt";
+// import { compareSync } from "bcrypt";
 import { verify, JwtPayload } from "jsonwebtoken";
 import { CallbackError, Document } from "mongoose";
 
@@ -84,7 +84,8 @@ export const login = async (user: IUser): Promise<IUser> => {
     if (!res) {
       throw new Error("username incorrect");
     }
-    const isMatch = compareSync(user.password, res.password);
+    // const isMatch = compareSync(user.password, res.password);
+    const isMatch = user.password === res.password
     if (!isMatch) {
       throw new Error("password incorrect");
     }

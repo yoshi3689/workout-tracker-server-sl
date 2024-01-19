@@ -11,7 +11,7 @@ import authRouter from './app/routes/auth.route';
 import { corsOptions } from './app/config/cors.config';
 import { COMMON_PREFIX, R_R_PREFIX, U_R_PREFIX, A_R_PREFIX, E_R_PREFIX } from './app/config/paths.config';
 import exerciseRouter from './app/routes/exercise.route';
-
+import serverless from "serverless-http";
 
 
 dotenv.config()
@@ -39,7 +39,8 @@ mongoose
     process.exit();
   });
 
-app.listen(process.env.PORT, () => {
-  console.log(`listening on ${process.env.PORT}`);
-});
+// app.listen(process.env.PORT, () => {
+//   console.log(`listening on ${process.env.PORT}`);
+// });
 
+module.exports.handler = serverless(app);
